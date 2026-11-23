@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ca" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>PagePlus Web</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232f7cf6'/%3E%3Cpath d='M9 7h10l5 5v13H9z' fill='%23fff'/%3E%3Cpath d='M12 15h9M12 19h9M12 23h6' stroke='%232f7cf6' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+<style id="pagesize"></style>
+</head>
+<body>
+<header id="top">
+  <div id="menubar">
+    <button class="ib" id="burger" title="Menú"></button>
+    <span class="logo">Page<b>Plus</b> <small>Web</small></span>
+    <nav id="menus"></nav>
+    <span id="docname"></span>
+  </div>
+  <div id="stdbar" class="bar"></div>
+  <div id="ctxbar" class="bar"></div>
+  <div id="doctabs" class="bar"></div>
+</header>
+<main id="main">
+  <aside id="tools" class="bar"></aside>
+  <section id="work">
+    <div id="rulerC"></div><canvas id="rulerH"></canvas><canvas id="rulerV"></canvas>
+    <div id="scroll"><div id="board"><div id="pagewrap"><div id="zoomer"><div id="page"></div><div id="pb"></div><div id="guides"></div><div id="sel"></div></div></div></div></div>
+  </section>
+  <aside id="studio"><nav id="tabs"></nav><div id="panel"></div></aside>
+</main>
+<footer id="status"></footer>
+<div id="print"></div>
+<dialog id="dlg"></dialog>
+<div id="pop"></div>
+<div id="picktip"></div>
+<script src="lib/qrcode.js"></script>
+<script src="js/util.js"></script>
+<script src="js/model.js"></script>
+<script src="js/render.js"></script>
+<script src="js/editor.js"></script>
+<script src="js/ui.js"></script>
+</body>
+</html>
