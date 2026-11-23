@@ -141,9 +141,9 @@ body.ng #guides{display:none}
 .scheme{display:flex;align-items:center;gap:8px}.scheme i{display:flex;height:16px;flex:1;border-radius:4px;overflow:hidden}.scheme i b{flex:1}
 .styl{padding:6px 10px;background:#f6f7f9;color:#222}.styl:hover{background:#eceef2}.styl.on{background:#fff}
 .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:6px 0 12px}
-.gallery button{aspect-ratio:1;background:var(--in);border:1px solid var(--line);border-radius:6px;cursor:pointer;padding:6px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.gallery button:hover{border-color:var(--acc)}
-.gallery svg{width:100%;height:100%;fill:var(--acc2);stroke:var(--acc);stroke-width:1.4}
+.gallery>button,.tile>button{width:100%;aspect-ratio:1;background:var(--in);border:1px solid var(--line);border-radius:6px;cursor:pointer;padding:6px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.gallery>button:hover,.tile>button:hover{border-color:var(--acc)}
+.gallery>button>svg{width:100%;height:100%;fill:var(--acc2);stroke:var(--acc);stroke-width:1.4}
 .gallery img{max-width:100%;max-height:100%}
 .empty{color:var(--dim);font-size:12px;padding:6px 0}
 
@@ -248,3 +248,9 @@ body.preview #print .pv{box-shadow:0 4px 20px #0007;background:#fff}
 .crumbs input{background:var(--in);border:1px solid var(--acc);border-radius:4px;padding:4px 6px}
 .ib.warn{color:#fff;background:#e5383b}
 .savename{display:flex;width:100%;margin-top:10px}.savename input{flex:1;width:auto!important;font-size:14px;height:34px!important}
+.tile{position:relative;display:flex;flex-direction:column;gap:2px;min-width:0}
+.tile small{font-size:10.5px;color:var(--dim);text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tact{position:absolute;top:3px;right:3px;display:flex;gap:2px;opacity:0;transition:opacity .15s}
+.tile:hover .tact,.tile:focus-within .tact{opacity:1}@media (hover:none){.tact{opacity:1}}
+.tact .ib{min-width:22px;height:22px;padding:0;background:var(--bar);border:1px solid var(--line)}.tact svg.i{width:13px;height:13px}
+.tact .ib.warn{background:#e5383b;color:#fff;border-color:#e5383b}

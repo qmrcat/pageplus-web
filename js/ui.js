@@ -268,7 +268,7 @@ const PANELS = {
     const des = ls('designs') || [], drag = a => e => e.dataTransfer.setData('text/pp', JSON.stringify(a));
     const add = () => pickFile('image/*', f => readImg(f).then(im => { doc.assets.push({ t: 'img', ...im }); commit(); buildPanel(); }));
     return [head('Imatges', btn('plus', 'Afegeix imatges al cistell', add)),
-      doc.assets.length ? h('div', { class: 'gallery' }, doc.assets.map((a, i) => h('button', { title: 'Clic: insereix · Maj+clic: posa-la de fons de pàgina · Doble clic: treu del cistell', draggable: true, ondragstart: drag(a), onclick: e => e.shiftKey ? setBg(null, a.src) : insertAsset(a), ondblclick: () => { doc.assets.splice(i, 1); commit(); buildPanel(); } }, h('img', { src: a.src }))))
+      doc.assets.length ? h('div', { class: 'gallery' }, doc.assets.map((a, i) => tile(h('button', { title: 'Clic: insereix · Maj+clic: posa-la de fons de pàgina', draggable: true, ondragstart: drag(a), onclick: e => e.shiftKey ? setBg(null, a.src) : insertAsset(a) }, h('img', { src: a.src })), () => { doc.assets.splice(i, 1); commit(); buildPanel(); })))
         : h('p', { class: 'empty', text: 'Afegiu imatges al cistell per tenir-les a mà; es desen amb la publicació.' }),
       head('Formes'), h('div', { class: 'gallery' }, SHAPES.map(([k, n]) => h('button', { title: n, html: shapeSvg(k), draggable: true, ondragstart: drag({ t: 'shape', k }), onclick: () => insertAsset({ t: 'shape', k }) }))),
       head('Els meus dissenys', btn('save', 'Desa la selecció com a disseny', async () => {
@@ -276,8 +276,8 @@ const PANELS = {
         const b = bbox(sel); des.push({ t: 'design', n, w: b.w, h: b.h, objs: sel.map(o => ({ ...clone(o), x: o.x - b.x, y: o.y - b.y })) });
         ls('designs', des) ? buildPanel() : toast('No hi ha prou espai al navegador');
       })),
-      des.length ? h('div', { class: 'gallery' }, des.map((d, i) => h('button', { title: d.n + ' · Doble clic: elimina', draggable: true, ondragstart: drag(d), onclick: () => insertAsset(d), ondblclick: () => { des.splice(i, 1); ls('designs', des); buildPanel(); } },
-        thumb({ ...doc, page: { ...doc.page, w: d.w, h: d.h, bg: 'transparent' }, pages: [] }, { objs: d.objs }, 56))))
+      des.length ? h('div', { class: 'gallery' }, des.map((d, i) => tile(h('button', { title: d.n, draggable: true, ondragstart: drag(d), onclick: () => insertAsset(d) },
+        thumb({ ...doc, page: { ...doc.page, w: d.w, h: d.h, bg: 'transparent' }, pages: [] }, { objs: d.objs }, 56)), () => { des.splice(i, 1); ls('designs', des); buildPanel(); }, { v: d.n, set: n => { d.n = n; ls('designs', des); buildPanel(); } })))
         : h('p', { class: 'empty', text: 'Deseu grups d\'objectes per reutilitzar-los en qualsevol publicació.' })];
   }
 };
@@ -303,6 +303,10 @@ function bgPanel() {
       ...(m ? [bt('Mou-la a la pàgina mestra (totes les pàgines)', 'master', () => { m.bgi = b; delete p.bgi; commit(); toast(`Ara totes les pàgines amb «${m.name}» tenen aquest fons`); }, 1)] : [])] : [])],
       k => b?.[k], (k, v, fin) => { b[k] = v; render(); if (fin) { commit(); k === 'fit' && buildPanel(); } })];
 }
+// Element de galeria amb accions: elimina (dos clics per confirmar) i, si cal, canvia el nom
+const tile = (b, del, ren) => h('div', { class: 'tile' }, b, ren ? h('small', { text: ren.v, title: ren.v }) : null, h('div', { class: 'tact' },
+  ren ? btn('edit', 'Canvia el nom', async e => { e.stopPropagation(); const n = (await ask('Nom del disseny', ren.v))?.trim(); if (n) ren.set(n); }) : null,
+  btn('trash', 'Elimina', e => { e.stopPropagation(); const t = e.currentTarget; if (t.classList.contains('warn')) return del(); t.classList.add('warn'); t.title = 'Feu clic una altra vegada per eliminar'; })));
 function insertAsset(a, at) {
   const c = at || { x: doc.page.w / 2, y: doc.page.h / 2 };
   if (a.t === 'design') { const n = reid(a.objs).map(o => ({ ...o, x: o.x + c.x - a.w / 2, y: o.y + c.y - a.h / 2 })); pg().objs.push(...n); sel = n; return commit(); }

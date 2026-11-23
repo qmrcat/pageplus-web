@@ -90,7 +90,7 @@ Les funcions es reutilitzen a tota l'aplicació. Per exemple:
 | Tool feedback | La mida, la posició i l'angle es mostren mentre arrossegueu |
 | Format Painter | Copia el format d'un objecte a un altre |
 | Layers / Objects | Llista d'objectes amb noms, visibilitat i bloqueig |
-| Assets | Cistell d'imatges, galeria de formes i «Els meus dissenys» reutilitzables |
+| Assets | Cistell d'imatges, galeria de formes i «Els meus dissenys» reutilitzables (amb botons per canviar el nom i eliminar en passar el ratolí per sobre) |
 | Preflight | Marcs buits, text desbordat, objectes fora de pàgina, resolució baixa, objectes amagats |
 | Print / PDF / Preview | Previsualització d'impressió i impressió o «Desa com a PDF» del navegador amb la mida de pàgina correcta |
 | Publish as web | Exporta una pàgina HTML autònoma (imatges incrustades) |
